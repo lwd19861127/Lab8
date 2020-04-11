@@ -10,7 +10,7 @@
 
 @implementation Kitchen
 
-- (Pizza *)makePizzaWithSize:(PizzaSize)size toppings:(NSArray *)toppings
+- (Pizza *)makePizzaWithSize:(PizzaSize)size toppings:(NSArray *)toppings useDeliveryService:(DeliveryService*) deliveryService
 {
     Pizza *pizza = [Pizza new];
     if ([self.delegate kitchen:self shouldMakePizzaOfSize:size andToppings:toppings]) {
@@ -19,8 +19,8 @@
         }else {
             pizza = [[Pizza alloc] initWithSize:size andTopping:toppings];
         }
-        if ([self.delegate respondsToSelector:@selector(kitchenDidMakePizza:)]) {
-            [self.delegate kitchenDidMakePizza:pizza];
+        if ([self.delegate respondsToSelector:@selector(kitchenDidMakePizza:useDeliveryService:)]) {
+            [self.delegate kitchenDidMakePizza:pizza useDeliveryService:deliveryService];
         }
         return pizza;
     }else {

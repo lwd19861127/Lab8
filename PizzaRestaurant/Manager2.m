@@ -20,8 +20,9 @@
     return YES;
 }
 
-- (void) kitchenDidMakePizza:(Pizza *)pizza
+- (void) kitchenDidMakePizza:(Pizza *)pizza useDeliveryService:(DeliveryService*) deliveryService
 {
+    [deliveryService deliverPizza:pizza];
     NSLog(@"Enjoy your Pizza");
 }
 

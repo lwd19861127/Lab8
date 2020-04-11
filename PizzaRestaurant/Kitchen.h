@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Pizza.h"
+#import "DeliveryService.h"
 
 @class Kitchen;
 
@@ -18,7 +19,7 @@
 - (BOOL) kitchenShouldUpgradeOrder:(Kitchen *)kitchen;
 
 @optional
-- (void) kitchenDidMakePizza:(Pizza *)pizza;
+- (void) kitchenDidMakePizza:(Pizza *)pizza useDeliveryService:(DeliveryService*) deliveryService;
 
 @end
 
@@ -26,6 +27,6 @@
 
 @property (nonatomic, weak) id<KitchenDelegate> delegate;
 
-- (Pizza *)makePizzaWithSize:(PizzaSize)size toppings:(NSArray *)toppings;
+- (Pizza *)makePizzaWithSize:(PizzaSize)size toppings:(NSArray *)toppings useDeliveryService:(DeliveryService*) deliveryService;
 
 @end

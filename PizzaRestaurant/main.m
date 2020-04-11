@@ -12,6 +12,8 @@
 #import "Pizza.h"
 #import "Manager1.h"
 #import "Manager2.h"
+#import "DeliveryService.h"
+#import "DeliveryCar.h"
 
 int main(int argc, const char * argv[])
 {
@@ -21,10 +23,12 @@ int main(int argc, const char * argv[])
         Kitchen *restaurantKitchen = [Kitchen new];
         Manager1 *manager1 = [Manager1 new];
         Manager2 *manager2 = [Manager2 new];
+        DeliveryService *deliveryService = [DeliveryService new];
+        DeliveryCar *deliveryCar = [DeliveryCar new];
         
         while (TRUE) {
             char str[100];
-            
+            deliveryService.delegate = deliveryCar;
             
             NSLog(@"Which Manager do you like:");
             NSLog(@"> ");
@@ -49,8 +53,8 @@ int main(int argc, const char * argv[])
                 NSRange theTopping;
                 theTopping.location = 1;
                 theTopping.length =  commandWords.count - 1;
-                Pizza *pizza = [restaurantKitchen makePizzaWithSize:(PizzaSize)commandWords[0] toppings:[commandWords subarrayWithRange:theTopping]];
-                NSLog(@"%@ + %@",pizza.size, pizza.topping);
+                Pizza *pizza = [restaurantKitchen makePizzaWithSize:(PizzaSize)commandWords[0] toppings:[commandWords subarrayWithRange:theTopping] useDeliveryService:deliveryService];
+                NSLog(@"%ld + %@",(long)pizza.size, pizza.topping);
             }else if ([inputString0 isEqualToString:@"2"]) {
                 restaurantKitchen.delegate = manager2;
                 NSLog(@"Please pick your pizza size and toppings:");
@@ -67,8 +71,8 @@ int main(int argc, const char * argv[])
                 NSRange theTopping;
                 theTopping.location = 1;
                 theTopping.length =  commandWords.count - 1;
-                Pizza *pizza = [restaurantKitchen makePizzaWithSize:(PizzaSize)commandWords[0] toppings:[commandWords subarrayWithRange:theTopping]];
-                NSLog(@"%@ + %@",pizza.size, pizza.topping);
+                Pizza *pizza = [restaurantKitchen makePizzaWithSize:(PizzaSize)commandWords[0] toppings:[commandWords subarrayWithRange:theTopping] useDeliveryService:deliveryService];
+                NSLog(@"%ld + %@",(long)pizza.size, pizza.topping);
             }else {
                 NSLog(@"Please pick your pizza size and toppings:");
                 NSLog(@"> ");
@@ -85,7 +89,7 @@ int main(int argc, const char * argv[])
                 theTopping.location = 1;
                 theTopping.length =  commandWords.count - 1;
                 Pizza *pizza = [[Pizza alloc] initWithSize:(PizzaSize)commandWords[0] andTopping:[commandWords subarrayWithRange:theTopping]];
-                NSLog(@"%@ + %@",pizza.size, pizza.topping);
+                NSLog(@"%ld + %@",(long)pizza.size, pizza.topping);
             }
         }
 
